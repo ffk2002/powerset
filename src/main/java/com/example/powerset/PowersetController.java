@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -71,12 +72,12 @@ public class PowersetController {
     }
 
     @GetMapping("/set/date={date}")
-    CollectionModel<EntityModel<List<PSet>>> selectDate(@PathVariable LocalDate date){
-        List<EntityModel<List<PSet>>> onDay = repo.findAllPSetsByDate(date)
-                .stream()
-                .map(obj::toModel).toList();
+    Optional<List<PSet>> selectDate(@PathVariable LocalDate date) {
+        return repo.findAllPSetsByDate(date);
+    }
 
-        return CollectionModel.of(onDay, linkTo(methodOn(PowersetController.class).selectDate(date)).withSelfRel());
-
+    @GetMapping("/set/type={type}")
+    Optional<List<PSet>> findByDate(@PathVariable String type) {
+        return repo.findAllByType(type);
     }
 }

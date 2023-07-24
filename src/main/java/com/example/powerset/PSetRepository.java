@@ -9,4 +9,5 @@ import java.util.Optional;
 
 interface PSetRepository extends JpaRepository<PSet, Long> {
     Optional<List<PSet>> findAllPSetsByDate(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate day);
+    Optional<List<PSet>> findAllByType(String type);
 }
