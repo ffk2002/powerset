@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="PowersetApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="powerset" />
+    <option name="PROGRAM_PARAMETERS" value="cd $PROJECT_DIR$/ui &amp;&amp; npm run serve" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.powerset.PowersetApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
