@@ -14,6 +14,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@CrossOrigin("http://localhost:8081/")
 public class PowersetController {
     private final PSetRepository repo;
     private final ObjectModelAssembler obj;

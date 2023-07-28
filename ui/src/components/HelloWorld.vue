@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="text-dark">All Sets:</h1>
-    <table class="table table-striped">
+    <table class="table table-striped text-center">
       <thead>
         <th>Date</th>
         <th>Type</th>
@@ -9,7 +9,7 @@
         <th>Repetitions</th>
       </thead>
       <tbody>
-        <tr v-for="set in sets" v-bind:key="set.id">
+        <tr v-for="set in payload" v-bind:key="set.id">
           <td> {{set.date}}</td>
           <td> {{set.type}}</td>
           <td> {{set.weight}}</td>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import getAllSetsService from "@/service/getAllSetsService";
+import getAllSetsService from "../service/getAllSetsService";
 
 export default {
   name: 'HomePage',
@@ -35,7 +35,7 @@ export default {
       console.log("getpayload")
       getAllSetsService.getAll().then(
         (response) => {
-          this.payload=response.data;
+          this.payload=response.data._embedded.pSetList;
         }
       )
     }
