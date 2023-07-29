@@ -1,25 +1,30 @@
 <template>
   <div class="container">
-    <h1 class="text-dark">Dashboard:</h1>
+    <h1 class="text-dark"><div style="text-align: center;">Dashboard:</div></h1>
 
-
-    <table v-for="type in setsByType" v-bind:key="setsByType[type]" class="d-table">
-      <caption>{{ type[0]["type"] }}</caption>
-      <thead>
-        <th>Date</th>
-        <th>Type</th>
-        <th>Weight</th>
-        <th>Repetitions</th>
-      </thead>
-      <tbody>
-        <tr v-for="set in type" v-bind:key="set.id">
-          <td> {{set.date}}</td>
-          <td> {{set.type}}</td>
-          <td> {{set.weight}}</td>
-          <td> {{set.reps}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 scroll" v-for="type in setsByType" v-bind:key="setsByType[type]">
+          <table class="table table-bordered table-striped">
+            <caption style="caption-side: top">{{ type[0]["type"] }}</caption>
+            <thead>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Weight</th>
+              <th>Repetitions</th>
+            </thead>
+            <tbody>
+              <tr v-for="set in type" v-bind:key="set.id">
+                <td> {{set.date}}</td>
+                <td> {{set.type}}</td>
+                <td> {{set.weight}}</td>
+                <td> {{set.reps}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -61,3 +66,10 @@ export default {
 
 }
 </script>
+<style>
+.scroll {
+  max-height: 250px;
+  overflow: auto;
+  padding-bottom: 20px;
+}
+</style>
