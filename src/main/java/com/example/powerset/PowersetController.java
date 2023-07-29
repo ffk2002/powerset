@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -41,9 +41,31 @@ public class PowersetController {
 
     @GetMapping("/set/id={id}")
     EntityModel<PSet> getPSet(@PathVariable Long id){
-        PSet set = repo.findById(id).orElseThrow(() -> new SetNotFoundException(id));
+        PSet set = repo.findById(id).orElseThrow(
+                () ->
+                new SetNotFoundException(id)
+        );
 
         return obj.toModel(set);
+    }
+
+    @GetMapping("/set/types")
+    HashMap<String, List<PSet>> getAllTypes(){
+        //  list of PSet.type
+        List<String> allTypes = repo.findAll()
+                .stream()
+                .map(PSet::getType)
+                .toList();
+
+        Set<String> typeSet = new HashSet<>(allTypes);
+
+        HashMap<String, List<PSet>> setsByType = new HashMap<>();
+
+        for(String type:typeSet){
+            Optional<List<PSet>> byType = repo.findAllByType(type);
+            byType.ifPresent(pSets -> setsByType.put(type, pSets));
+        }
+        return setsByType;
     }
 
     @PutMapping("/set/id={id}")
@@ -78,7 +100,12 @@ public class PowersetController {
     }
 
     @GetMapping("/set/type={type}")
-    Optional<List<PSet>> findByDate(@PathVariable String type) {
-        return repo.findAllByType(type);
+    Optional<List<PSet>> findByType(@PathVariable String type) {
+        Optional<List<PSet>> byType = repo.findAllByType(type);
+        if (byType.get().isEmpty()){
+            throw new SetNotFoundException(type);
+        }else {
+            return byType;
+        }
     }
 }
