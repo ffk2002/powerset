@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -50,7 +49,7 @@ public class PowersetController {
     }
 
     @GetMapping("/set/types")
-    HashMap<String, List<PSet>> getAllTypes(){
+    EntityModel<HashMap<String, List<PSet>>> getAllTypes(){
         //  list of PSet.type
         List<String> allTypes = repo.findAll()
                 .stream()
@@ -65,7 +64,8 @@ public class PowersetController {
             Optional<List<PSet>> byType = repo.findAllByType(type);
             byType.ifPresent(pSets -> setsByType.put(type, pSets));
         }
-        return setsByType;
+
+        return obj.toModel(setsByType);
     }
 
     @PutMapping("/set/id={id}")

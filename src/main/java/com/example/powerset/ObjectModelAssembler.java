@@ -4,6 +4,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -20,4 +21,7 @@ public class ObjectModelAssembler implements RepresentationModelAssembler<PSet, 
                 );
     }
 
+    public EntityModel<HashMap<String, List<PSet>>> toModel(HashMap<String, List<PSet>> setsByType) {
+        return EntityModel.of(setsByType);
+    }
 }
