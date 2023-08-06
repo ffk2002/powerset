@@ -3,6 +3,7 @@ package com.example.powerset;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,17 +40,17 @@ public class PowersetController {
     }
 
     @GetMapping("/set/id={id}")
-    EntityModel<PSet> getPSet(@PathVariable Long id){
+    ResponseEntity<PSet> getPSet(@PathVariable Long id){
         PSet set = repo.findById(id).orElseThrow(
                 () ->
                 new SetNotFoundException(id)
         );
 
-        return obj.toModel(set);
+        return new ResponseEntity<>(set, HttpStatus.OK);
     }
 
     @GetMapping("/set/types")
-    EntityModel<HashMap<String, List<PSet>>> getAllTypes(){
+    ResponseEntity<HashMap<String, List<PSet>>> getAllTypes(){
         //  list of PSet.type
         List<String> allTypes = repo.findAll()
                 .stream()
@@ -65,7 +66,7 @@ public class PowersetController {
             byType.ifPresent(pSets -> setsByType.put(type, pSets));
         }
 
-        return obj.toModel(setsByType);
+        return new ResponseEntity<>(setsByType, HttpStatus.OK);
     }
 
     @PutMapping("/set/id={id}")
