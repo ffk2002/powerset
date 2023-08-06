@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container" >
     <h1 class="text-dark"><div style="text-align: center;">Dashboard:</div></h1>
-
+    <button class="btn btn-outline-dark" @click="routeRecord()">Record Set</button>
     <div class="container">
       <div class="row">
         <div class="col-md-4 scroll" v-for="type in setsByType" v-bind:key="setsByType[type]">
@@ -48,6 +48,9 @@ export default {
           this.payload=response.data._embedded.pSetList;
         }
       )
+    },
+    routeRecord(){
+      this.$router.push({name: 'Record'})
     },
     getByType(){
       console.log("get by type")
