@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import getAllSetsService from "../service/getAllSetsService";
 import getSetsByTypeService from "@/service/getSetsByTypeService";
 
 export default {
@@ -41,32 +40,22 @@ export default {
     }
   },
   methods: {
-    getPayload(){
-      console.log("getpayload")
-      getAllSetsService.getAll().then(
-        (response) => {
-          this.payload=response.data._embedded.pSetList;
-        }
-      )
-    },
     routeRecord(){
       this.$router.push({name: 'Record'})
     },
     getByType(){
       console.log("get by type")
       getSetsByTypeService.getByType().then(
-          (response) => {
-            this.setsByType = response.data;
-            console.log(this.setsByType)
-          }
+        (response) => {
+          this.setsByType = response.data;
+          console.log(this.setsByType)
+        }
       )
     }
   },
   created() {
-    this.getPayload();
     this.getByType();
-  }
-
+  },
 }
 </script>
 <style>
