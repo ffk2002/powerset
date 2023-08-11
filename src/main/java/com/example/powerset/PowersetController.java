@@ -34,9 +34,12 @@ public class PowersetController {
 
     @PostMapping("/set")
     ResponseEntity<?> newPSet(@RequestBody PSet set){
-        EntityModel<PSet> pset = obj.toModel(repo.save(set));
-
-        return ResponseEntity.created(pset.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(pset);
+        if(set.getWeight()==null || set.getType()==null || set.getReps()==null){
+            throw new InvalidSetInputException(set);
+        }else {
+            EntityModel<PSet> pset = obj.toModel(repo.save(set));
+            return ResponseEntity.created(pset.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(pset);
+        }
     }
 
     @GetMapping("/set/id={id}")

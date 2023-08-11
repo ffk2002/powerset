@@ -1,16 +1,18 @@
 <template>
   <div class="container">
     <h1 class="text-dark"><div style="text-align: center;">Record:</div></h1>
-    <div>
-      <input class="input-group-text" v-model="activity" placeholder="enter activity">
-      <input class="input-group-text" v-model="repetitions" placeholder="enter repetitions">
-      <input class="input-group-text" v-model="weight" placeholder="enter weight">
-      <input type="date" class="input-group-text" v-model="date">
-    </div>
-    <div>
-      <button class="btn btn-outline-dark" @click="submit(); routeDashboard();">Record</button>
-      <button class="btn btn-outline-danger" @click="routeRecord()">Cancel</button>
-    </div>
+    <form @submit.prevent="submit">
+      <div>
+        <input class="input-group-text" v-model="activity" placeholder="enter activity" required>
+        <input class="input-group-text" v-model="repetitions" placeholder="enter repetitions" required>
+        <input class="input-group-text" v-model="weight" placeholder="enter weight" required>
+        <input type="date" class="input-group-text" v-model="date">
+      </div>
+      <div>
+        <button class="btn btn-outline-dark" type="submit">Record</button>
+        <button class="btn btn-outline-danger" @click="routeDashboard()">Cancel</button>
+      </div>
+    </form>
   </div>
 
 
@@ -42,6 +44,7 @@ export default {
     submit(){
       console.log("submitandreturn")
       this.postNewSet(this.activity, this.repetitions, this.weight, this.date)
+      this.$router.go(-1)
     },
     async routeDashboard(){
       await this.$router.push({name: 'Dashboard'})
