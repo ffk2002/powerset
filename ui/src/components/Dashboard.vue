@@ -36,7 +36,8 @@ export default {
   data(){
     return {
       payload: [],
-      setsByType: {}
+      setsByType: {},
+      interval: null
     }
   },
   methods: {
@@ -55,7 +56,11 @@ export default {
   },
   created() {
     this.getByType();
+    this.interval = setInterval(this.getByType, 1000)
   },
+  beforeUnmount() {
+    clearInterval(this.interval)
+  }
 }
 </script>
 <style>
