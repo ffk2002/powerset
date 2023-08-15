@@ -1,5 +1,5 @@
 <template>
-  <div class="container" >
+  <div class="container">
     <h1 class="text-dark"><div style="text-align: center;">Dashboard:</div></h1>
     <button class="btn btn-outline-dark" @click="routeRecord()">Record Set</button>
     <div class="container">
