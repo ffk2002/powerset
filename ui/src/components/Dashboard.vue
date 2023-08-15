@@ -37,7 +37,7 @@ export default {
     return {
       payload: [],
       setsByType: {},
-      interval: null
+      timeout: null
     }
   },
   methods: {
@@ -56,10 +56,10 @@ export default {
   },
   created() {
     this.getByType();
-    this.interval = setInterval(this.getByType, 1000)
+    this.timeout = setTimeout(this.getByType, 500)
   },
   beforeUnmount() {
-    clearInterval(this.interval)
+    clearTimeout(this.timeout)
   }
 }
 </script>
