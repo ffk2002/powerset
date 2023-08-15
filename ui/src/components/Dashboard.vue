@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container" >
     <h1 class="text-dark"><div style="text-align: center;">Dashboard:</div></h1>
-
+    <button class="btn btn-outline-dark" @click="routeRecord()">Record Set</button>
     <div class="container">
       <div class="row">
         <div class="col-md-4 scroll" v-for="type in setsByType" v-bind:key="setsByType[type]">
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import getAllSetsService from "../service/getAllSetsService";
 import getSetsByTypeService from "@/service/getSetsByTypeService";
 
 export default {
@@ -37,33 +36,31 @@ export default {
   data(){
     return {
       payload: [],
-      setsByType: {}
+      setsByType: {},
+      timeout: null
     }
   },
   methods: {
-    getPayload(){
-      console.log("getpayload")
-      getAllSetsService.getAll().then(
-        (response) => {
-          this.payload=response.data._embedded.pSetList;
-        }
-      )
+    routeRecord(){
+      this.$router.push({name: 'Record'})
     },
     getByType(){
       console.log("get by type")
       getSetsByTypeService.getByType().then(
-          (response) => {
-            this.setsByType = response.data;
-            console.log(this.setsByType)
-          }
+        (response) => {
+          this.setsByType = response.data;
+          console.log(this.setsByType)
+        }
       )
     }
   },
   created() {
-    this.getPayload();
     this.getByType();
+    this.timeout = setTimeout(this.getByType, 500)
+  },
+  beforeUnmount() {
+    clearTimeout(this.timeout)
   }
-
 }
 </script>
 <style>
