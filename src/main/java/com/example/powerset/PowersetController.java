@@ -14,7 +14,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@CrossOrigin("http://localhost:8081/")
+//@CrossOrigin("http://localhost:8081/")
 public class PowersetController {
     private final PSetRepository repo;
     private final ObjectModelAssembler obj;
@@ -30,6 +30,10 @@ public class PowersetController {
                 .map(obj::toModel).toList();
 
         return CollectionModel.of(all, linkTo(methodOn(PowersetController.class).all()).withSelfRel());
+    }
+    @GetMapping("/error")
+    String error(){
+        return "cors is gay";
     }
 
     @PostMapping("/set")
