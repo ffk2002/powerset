@@ -1,4 +1,4 @@
-package com.example.powerset;
+package com.example.powerset.set;
 
 
 import jakarta.persistence.Entity;
@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 import java.time.LocalDate;
-//import java.util.Date;
 import java.util.Objects;
 
 @Entity

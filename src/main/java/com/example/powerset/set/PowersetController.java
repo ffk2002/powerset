@@ -1,5 +1,7 @@
-package com.example.powerset;
+package com.example.powerset.set;
 
+import com.example.powerset.error_handling.InvalidSetInputException;
+import com.example.powerset.error_handling.SetNotFoundException;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -14,7 +16,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-//@CrossOrigin("http://localhost:8081/")
+@CrossOrigin("http://localhost:8081/")
 public class PowersetController {
     private final PSetRepository repo;
     private final ObjectModelAssembler obj;
@@ -30,10 +32,6 @@ public class PowersetController {
                 .map(obj::toModel).toList();
 
         return CollectionModel.of(all, linkTo(methodOn(PowersetController.class).all()).withSelfRel());
-    }
-    @GetMapping("/error")
-    String error(){
-        return "cors is gay";
     }
 
     @PostMapping("/set")

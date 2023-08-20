@@ -1,4 +1,4 @@
-package com.example.powerset;
+package com.example.powerset.set;
 
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

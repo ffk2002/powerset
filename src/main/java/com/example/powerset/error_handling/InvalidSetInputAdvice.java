@@ -1,4 +1,4 @@
-package com.example.powerset;
+package com.example.powerset.error_handling;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,7 +11,7 @@ public class InvalidSetInputAdvice {
     @ResponseBody
     @ExceptionHandler(InvalidSetInputException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    String invalidSetInputHandler(InvalidSetInputException ex) {
+    public String invalidSetInputHandler(InvalidSetInputException ex) {
         return ex.getMessage();
     }
 }
