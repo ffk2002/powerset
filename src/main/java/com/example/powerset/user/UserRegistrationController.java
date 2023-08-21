@@ -1,7 +1,7 @@
 package com.example.powerset.user;
 
-import com.example.powerset.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.powerset.error_handling.PowersetUserFoundException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +20,15 @@ public class UserRegistrationController {
     @PostMapping("/register")
     @ResponseStatus(code = HttpStatus.CREATED)
     public void registerUser(@RequestBody PowersetUserDTO PUDTO){
-        PowersetUser u = PowersetUser.builder()
-                .username(PUDTO.getUsername())
-                .password(passwordEncoder.encode(PUDTO.getPassword()))
-                .name(PUDTO.getName())
-                .build();
-
-        repo.save(u);
+        if (repo.existsByUsername(PUDTO.getUsername())){
+            throw new PowersetUserFoundException(PUDTO.getUsername());
+        } else {
+            PowersetUser u = PowersetUser.builder()
+                    .username(PUDTO.getUsername())
+                    .password(passwordEncoder.encode(PUDTO.getPassword()))
+                    .name(PUDTO.getName())
+                    .build();
+            repo.save(u);
+        }
     }
 }
