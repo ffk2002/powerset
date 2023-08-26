@@ -1,4 +1,4 @@
-<template data-bs-theme="dark">
+<template>
   <router-view />
 </template>
 
