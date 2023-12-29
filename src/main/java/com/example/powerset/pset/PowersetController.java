@@ -1,5 +1,7 @@
-package com.example.powerset;
+package com.example.powerset.pset;
 
+import com.example.powerset.error_handling.InvalidSetInputException;
+import com.example.powerset.error_handling.SetNotFoundException;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;

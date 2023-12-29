@@ -1,4 +1,4 @@
-package com.example.powerset;
+package com.example.powerset.pset;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.format.annotation.DateTimeFormat;

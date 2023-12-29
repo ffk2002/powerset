@@ -1,4 +1,4 @@
-package com.example.powerset;
+package com.example.powerset.pset;
 
 
 import jakarta.persistence.Entity;
