@@ -17,7 +17,6 @@ public class AuthService {
     private final AuthenticationManager authManager;
     private final PasswordEncoder encoder;
     public AuthResponse register(RegisterRequest req){
-        System.out.println("service register");
         var user = User.builder()
                 .username(req.getUsername())
                 .password(encoder.encode(req.getPassword()))

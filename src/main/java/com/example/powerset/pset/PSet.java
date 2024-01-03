@@ -1,9 +1,9 @@
 package com.example.powerset.pset;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.example.powerset.user.User;
+import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDate;
 //import java.util.Date;
@@ -12,7 +12,12 @@ import java.util.Objects;
 @Entity
 public class PSet {
 
+    @Getter
     private @Id @GeneratedValue Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     private String type;
     private Long reps;
     private Long weight;
@@ -28,16 +33,19 @@ public class PSet {
         this.date = date;
     }
 
+    public PSet(String type, Long reps, Long weight, LocalDate date, User user) {
+        this.type = type;
+        this.reps = reps;
+        this.weight = weight;
+        this.date = date;
+        this.user = user;
+    }
 
     public PSet(String type, Long reps, Long weight) {
         this.type = type;
         this.reps = reps;
         this.weight = weight;
 //        this.date = new Date();
-    }
-
-    public Long getId() {
-        return this.id;
     }
 
     public void setId(Long id) {
@@ -104,5 +112,13 @@ public class PSet {
                 ", weight=" + this.weight +
                 ", date=" + this.date +
                 '}';
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

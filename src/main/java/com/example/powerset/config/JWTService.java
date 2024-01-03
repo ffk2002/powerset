@@ -23,13 +23,12 @@ public class JWTService {
 
 
     public String genToken(UserDetails user){
-        System.out.println("gentoken");
         long now = System.currentTimeMillis();
         return Jwts
                 .builder()
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date(now))
-                .setExpiration(new Date(now + 100*24*60))
+                .setExpiration(new Date(now + 1000*60*60))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
