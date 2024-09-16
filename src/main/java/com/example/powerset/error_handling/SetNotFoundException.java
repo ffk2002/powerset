@@ -1,10 +1,10 @@
-package com.example.powerset;
+package com.example.powerset.error_handling;
 
 public class SetNotFoundException extends RuntimeException{
-    SetNotFoundException(Long id){
+    public SetNotFoundException(Long id){
         super("SET ID " + id + "NOT FOUND" );
     }
-    SetNotFoundException(String type){
+    public SetNotFoundException(String type){
         super("SET WITH TYPE " + type + "NOT FOUND" );
     }
 }
